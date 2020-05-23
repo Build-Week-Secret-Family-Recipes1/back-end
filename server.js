@@ -8,4 +8,7 @@ server.use(express.json());
 server.use(cors());
 server.use(helmet());
 
+server.get("/", (req, res) => {
+  res.status(200).send(`<h1>Welcome!</h1>`);
+});
 module.exports = server;
