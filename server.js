@@ -9,6 +9,15 @@ server.use(cors());
 server.use(helmet());
 
 server.get("/", (req, res) => {
-  res.status(200).send(`<h1>Welcome!</h1>`);
+  res.status(200).send(`
+  <h1>Welcome to the Secret Family Recipes API!</h1>
+
+  <h4>Send your requests to these endpoints:</h4>
+
+  <p>
+    
+  </p>
+
+  `);
 });
 module.exports = server;
