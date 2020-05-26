@@ -4,12 +4,12 @@ const helmet = require("helmet");
 const session = require("express-session");
 
 const authenticate = require("./auth/auth-middleware.js");
-const authRouter = require("./auth/auth-router.js");
+const authRouter = require("./auth/auth-router");
 
 const server = express();
 
 const sessionConfig = {
-  name: "family-recipes-users",
+  name: "family-recipes",
   secret: "keep it secret, keep it safe",
   cookie: {
     maxAge: 1000 * 60 * 60,
