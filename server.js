@@ -31,9 +31,13 @@ server.get("/", (req, res) => {
   res.status(200).send(`
   <h1>Welcome to the Secret Family Recipes API!</h1>
 
-  <h4>Send your requests to these endpoints:</h4>
+  <h3>Send your requests to these endpoints:</h3>
 
-  <p>to register a new user: POST to https://bw-grandmas-recipes.herokuapp.com/api/auth/register</p>
+  <p>to <strong>REGISTER</strong> a new user: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/register</p>
+
+  <p>to <strong>LOGIN</strong> a user: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/login</p>
+
+  <p>to <strong>LOGOUT</strong> a user: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/logout</p>
 
   `);
 });

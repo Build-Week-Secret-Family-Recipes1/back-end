@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      //   console.log(err);
       res.status(500).json(err);
     });
 });
@@ -44,6 +44,7 @@ router.post("/login", (req, res) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json(err);
     });
 });
@@ -58,7 +59,7 @@ function generateToken(user) {
   const options = {
     expiresIn: "8h",
   };
-  return jwt.sign(payload, secrets.jwtSecret, options);
+  return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
 
 router.get("/logout", (req, res) => {
