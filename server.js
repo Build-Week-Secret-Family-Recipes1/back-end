@@ -33,9 +33,7 @@ server.get("/", (req, res) => {
 
   <h4>Send your requests to these endpoints:</h4>
 
-  <p>
-    
-  </p>
+  <p>to register a new user: POST to https://bw-grandmas-recipes.herokuapp.com/api/auth/register</p>
 
   `);
 });
