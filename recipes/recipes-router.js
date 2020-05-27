@@ -32,6 +32,7 @@ router.get("/instructions", async (req, res, next) => {
         "i.instruction",
         "r.source"
       );
+    res.json(recipes);
   } catch (err) {
     console.log(err);
     res.status(500).json({
