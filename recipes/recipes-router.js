@@ -28,8 +28,8 @@ router.get("/instructions", async (req, res, next) => {
         "r.category",
         "ig.ingr_name",
         "ig.amount",
-        "step #",
-        "instruction",
+        "i.step_#",
+        "i.instruction",
         "r.source"
       );
   } catch (err) {
