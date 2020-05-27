@@ -26,12 +26,10 @@ router.get("/instructions", async (req, res, next) => {
         "r.name",
         "r.prep_Time",
         "r.category",
-        [
-          { ingr_name: "ig.ingr_name" },
-          { amount: "ig.amount" },
-          { "step_#": "i.step_#" },
-          { instruction: "i.instruction" },
-        ],
+        "ig.ingr_name",
+        "ig.amount",
+        "i.step_#",
+        "i.instruction",
         "r.source"
       );
     res.json(recipes);
