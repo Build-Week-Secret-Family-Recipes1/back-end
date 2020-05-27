@@ -19,7 +19,7 @@ router.get("/instructions", async (req, res, next) => {
   try {
     const recipes = await db("instructions as i")
       .join("recipes as r", "i.recipe_id", "r.recipe_id")
-      .join("ingredients as ig", "ig.id", "i.id")
+      .join("ingredients as ig", "ig.ingr_id", "i.instr_id")
 
       .select(
         "i.recipe_id",
