@@ -5,6 +5,7 @@ const session = require("express-session");
 
 const authenticate = require("./auth/auth-middleware.js");
 const authRouter = require("./auth/auth-router");
+const recipeRouter = require("./recipes/recipes-router");
 
 const server = express();
 
@@ -26,6 +27,7 @@ server.use(express.json());
 server.use(session(sessionConfig));
 
 server.use("/api/auth", authRouter);
+server.use("/api/recipes", recipeRouter);
 
 server.get("/", (req, res) => {
   res.status(200).send(`
