@@ -5,23 +5,31 @@ const jwt = require("jsonwebtoken");
 const Users = require("./auth-model");
 
 //implement user registration
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res, next) => {
   let user = req.body;
 
   const hash = bcrypt.hashSync(user.password, 12);
 
   user.password = hash;
 
-  Users.add(user)
-    .then((saved) => {
-      if (req.body) {
-        res.status(201).json(saved).send(`<h1>User created successfully!</h1>`);
-      }
-    })
-    .catch((err) => {
-      //   console.log(err);
-      res.status(500).json(err);
-    });
+  await Users.add(user);
+  // .then((saved) => {
+  //   if (req.body) {
+  //     res.status(201).json(saved);
+  //   }
+  // })
+  // .catch((err) => {
+  //   //   console.log(err);
+  //   res.status(500).json(err);
+  // });
+  try {
+    if (req.body) {
+      res.status(201).json(user);
+    }
+  } catch {
+    res.status(500).json(err);
+    next(err);
+  }
 });
 
 //implement user login
