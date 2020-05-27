@@ -12,7 +12,7 @@ router.post("/register", async (req, res, next) => {
 
   user.password = hash;
 
-  Users.add(user);
+  await Users.add(user);
   // .then((saved) => {
   //   if (req.body) {
   //     res.status(201).json(saved);
@@ -24,10 +24,10 @@ router.post("/register", async (req, res, next) => {
   // });
   try {
     if (req.body) {
-      await res.status(201).json(user);
+      res.status(201).json(user);
     }
   } catch {
-    await res.status(500).json(err);
+    res.status(500).json(err);
     next(err);
   }
 });

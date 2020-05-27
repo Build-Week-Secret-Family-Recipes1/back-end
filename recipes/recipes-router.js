@@ -13,11 +13,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/users", async (req, res, next) => {
+router.get("/users", async (req, res) => {
   try {
-    res.json(await db("users"));
+    const users = await db("users");
+    res.json(users);
   } catch (err) {
-    next(err);
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Cannot retrieve users",
+    });
   }
 });
 
