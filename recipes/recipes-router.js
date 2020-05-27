@@ -24,7 +24,7 @@ router.get("/instructions", async (req, res, next) => {
       .select(
         "i.recipe_id",
         "r.name",
-        "r.prepTime",
+        "r.prep_Time",
         "r.type",
         "ig.ingr_name",
         "ig.amount",
