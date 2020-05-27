@@ -15,7 +15,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/instructions", async (req, res) => {
+router.get("/instructions", async (req, res, next) => {
   try {
     const recipes = await db("instructions as i")
       .join("recipes as r", "i.recipe_id", "r.recipe_id")
@@ -34,10 +34,10 @@ router.get("/instructions", async (req, res) => {
       );
   } catch (err) {
     console.log(err);
-    next(err);
     res.status(500).json({
       errorMessage: "Cannot retrieve instructions",
     });
+    next(err);
   }
 });
 
