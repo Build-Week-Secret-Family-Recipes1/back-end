@@ -19,20 +19,18 @@ router.get("/instructions", async (req, res) => {
   try {
     const recipes = await db("instructions as i")
       .join("recipes as r", "i.recipe_id", "r.recipe_id")
-      .join("category as c", "r.categoryId", "c.id")
       .join("ingredients as ig", "ig.id", "i.id")
-      .join("source as s", "r.sourceId", "s.id")
 
       .select(
         "i.recipe_id",
         "r.name",
         "r.prepTime",
-        "c.type",
+        "r.type",
         "ig.ingr_name",
         "ig.amount",
         "step #",
         "instruction",
-        "s.source"
+        "r.source"
       );
   } catch (err) {
     console.log(err);
