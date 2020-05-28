@@ -16,6 +16,26 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const ingredients = await db("ingredients").where(
+      "recipe_id",
+      req.params.id
+    );
+    if (!ingredients) {
+      return res.status(404).json({
+        message: "Ingredients not found",
+      });
+    }
+    res.json(ingredients);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Cannot retrieve users",
+    });
+  }
+});
+
 router.get("/instructions", async (req, res, next) => {
   try {
     const recipes = await db("instructions as i")
