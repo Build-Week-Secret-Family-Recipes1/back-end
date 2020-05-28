@@ -1,4 +1,6 @@
 const express = require("express");
+const { Pool, Client } = require("pg");
+// const connectionString = 'postgre'
 const db = require("../data/dbConfig");
 
 const router = express.Router();
