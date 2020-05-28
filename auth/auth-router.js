@@ -34,16 +34,16 @@ router.post("/register", async (req, res, next) => {
 
 //implement user login
 router.post("/login", (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  Users.findBy({ username })
+  Users.findBy({ email })
     .first()
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         req.session.user = {
           id: user.id,
-          username: user.username,
+          email: user.email,
           token: user.token,
         };
         res.status(201).json({ message: `Welcome ${user.username}!` });
@@ -61,7 +61,7 @@ router.post("/login", (req, res) => {
 function generateToken(user) {
   const payload = {
     subject: user.id,
-    username: user.username,
+    email: user.email,
   };
 
   const options = {
