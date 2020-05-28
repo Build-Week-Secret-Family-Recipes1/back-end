@@ -5,7 +5,7 @@ exports.up = async function (knex) {
     table.float("prep_time");
     table.string("category", 128);
     table.text("source");
-    table.bytea("img_path");
+    table.text("img_path");
   });
 
   await knex.schema.createTable("ingredients", (table) => {
