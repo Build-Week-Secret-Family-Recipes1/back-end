@@ -16,6 +16,18 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/ingredients", async (req, res, next) => {
+  try {
+    const ingredients = await db("ingredients");
+    res.json(ingredients);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Cannot retrieve ingredients",
+    });
+  }
+});
+
 router.get("/:id/ingredients", async (req, res, next) => {
   try {
     const ingredients = await db("ingredients").where(
@@ -31,7 +43,7 @@ router.get("/:id/ingredients", async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      errorMessage: "Cannot retrieve users",
+      errorMessage: "Cannot retrieve ingredients",
     });
   }
 });
