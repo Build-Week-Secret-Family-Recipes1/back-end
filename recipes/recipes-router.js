@@ -1,6 +1,5 @@
 const express = require("express");
-const { Pool, Client } = require("pg");
-// const connectionString = 'postgre'
+
 const db = require("../data/dbConfig");
 
 const router = express.Router();
@@ -31,9 +30,8 @@ router.get("/instructions", async (req, res, next) => {
         "ig.ingr_name",
         "ig.amount",
         "i.step_#",
-        // "i.instruction",
-        "r.source",
-        arr_agg(i.instruction)
+        "i.instruction",
+        "r.source"
       );
     res.json(recipes);
   } catch (err) {

@@ -12,6 +12,7 @@ exports.up = async function (knex) {
     table.increments("ingr_id");
     table.text("ingr_name");
     table.float("amount");
+    table.integer("recipe_id");
   });
 
   await knex.schema.createTable("instructions", (table) => {
