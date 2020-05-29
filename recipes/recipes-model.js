@@ -27,17 +27,7 @@ async function addRecipe(recipe) {
 }
 
 function findRecipeById(recipe_id) {
-  return db("recipes")
-    .where({ recipe_id })
-    .select(
-      "user_id",
-      "recipe_id",
-      "name",
-      "prep_time",
-      "category",
-      "source",
-      "img_path"
-    );
+  return db("recipes").where({ recipe_id });
 }
 
 async function addIngredient(ingredient) {
