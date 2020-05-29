@@ -6,6 +6,7 @@ exports.up = async function (knex) {
     table.string("category", 128);
     table.text("source");
     table.text("img_path");
+    table.integer("user_id").notNullable();
   });
 
   await knex.schema.createTable("ingredients", (table) => {
