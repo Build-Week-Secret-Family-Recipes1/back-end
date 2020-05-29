@@ -76,16 +76,19 @@ router.get("/:id/instructions", async (req, res, next) => {
   }
 });
 
-router.get("/users", async (req, res) => {
-  try {
-    const users = await db("users");
-    res.json(users);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      errorMessage: "Cannot retrieve users",
+// *** ADD Recipe ***
+
+router.post("/", async (req, res) => {
+  const newRecipe = req.body;
+
+  Users.add(newRecipe)
+    .then((recipe) => {
+      res.status(201).json(recipe);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Failed to create new recipe" });
     });
-  }
 });
 
 module.exports = router;

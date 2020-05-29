@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../data/dbConfig");
-const Model = require("../recipes/recipes-model");
+const Users = require("./user-model");
 
 const router = express.Router();
 
@@ -63,21 +63,6 @@ router.get("/:id/recipes", async (req, res, next) => {
   }
 });
 
-// *** ADD Recipe ***
-
-router.post("/", async (req, res) => {
-  const newRecipe = req.body;
-
-  Model.add(newRecipe)
-    .then((recipe) => {
-      res.status(201).json(recipe);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to create new scheme" });
-    });
-});
-
 // *** GET Ingredients by User ID ***
 
 router.get("/:id/ingredients", async (req, res, next) => {
@@ -125,4 +110,5 @@ router.get("/:id/instructions", async (req, res, next) => {
     next(err);
   }
 });
+
 module.exports = router;
