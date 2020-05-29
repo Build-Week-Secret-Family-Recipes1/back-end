@@ -35,12 +35,11 @@ router.get("/:id", async (req, res) => {
 
 router.get("/:id/recipes", async (req, res, next) => {
   try {
-    const recipes = await db("recipes as r")
-      .join("users as u", "u.user_id", "r.recipe_id")
-      .from("recipes")
-      .where("u.user_id", req.params.id)
-      .select()
-      .from("recipes");
+    const recipes = await db("interTable as i")
+      .join("users as u", "u.user_id", "i.user_id")
+      .join("recipes as r", "r.recipe_id", "i.recipe_id")
+      .where("user_id", req.params.id)
+      .select();
 
     res.json(recipes);
   } catch (err) {
