@@ -47,8 +47,9 @@ router.get("/:id/recipes", async (req, res, next) => {
       // "r.source",
       // "r.path_name"
       ();
-    res.json(animals);
+    res.json(recipes);
   } catch (err) {
+    console.log(err);
     next(err);
   }
 });
