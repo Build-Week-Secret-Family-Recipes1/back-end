@@ -27,7 +27,9 @@ async function addRecipe(recipe) {
 }
 
 function findRecipeById(user_id) {
-  return db("recipes").where({ user_id }).first();
+  return db("recipes")
+    .where(("user_id" = req.params.id))
+    .first();
 }
 
 async function addIngredient(ingredient) {
