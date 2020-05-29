@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../data/dbConfig");
-const model = require("../recipes/recipes-model");
+const Model = require("../recipes/recipes-model");
 
 const router = express.Router();
 
@@ -65,18 +65,24 @@ router.get("/:id/recipes", async (req, res, next) => {
 
 // *** ADD Recipe by User ID ***
 
-router.post("/:id/recipes", async (req, res, next) => {
+router.post("/:id/recipes", async (req, res) => {
   const newRecipe = req.body;
+  const { user_id } = req.params;
 
-  model
-    .add(newRecipe)
+  Model.findRecipeById(user_id)
     .then((recipe) => {
-      res.status(201).json(recipe);
+      if (recipe) {
+        Model.addRecipe(newRecipe, user_id).then((step) => {
+          res.status(201).json(step);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find recipe with given user id." });
+      }
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({ message: "Failed to create new recipe" });
-      next(err);
     });
 });
 
