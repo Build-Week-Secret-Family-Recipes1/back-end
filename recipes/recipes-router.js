@@ -81,7 +81,7 @@ router.get("/:id/instructions", async (req, res, next) => {
 router.post("/", async (req, res) => {
   const newRecipe = req.body;
 
-  Users.add(newRecipe)
+  Users.addRecipe(newRecipe)
     .then((recipe) => {
       res.status(201).json(recipe);
     })
