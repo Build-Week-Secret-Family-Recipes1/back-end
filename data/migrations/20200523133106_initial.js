@@ -22,7 +22,7 @@ exports.up = async function (knex) {
     table.increments("instr_id");
     table.integer("step_#");
     table.text("instruction");
-    table.text("recipe_id");
+    table.integer("recipe_id");
   });
 
   await knex.schema.createTable("interTable", (table) => {
