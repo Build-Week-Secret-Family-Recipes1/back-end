@@ -70,7 +70,7 @@ router.post("/:id/recipes", async (req, res, next) => {
   const { user_id } = req.params;
 
   model
-    .findById(user_id)
+    .findRecipeById(user_id)
     .then((recipe) => {
       if (recipe) {
         db.addRecipe(newRecipe, user_id).then((step) => {
