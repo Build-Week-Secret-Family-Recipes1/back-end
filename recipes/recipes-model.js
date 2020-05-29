@@ -1,10 +1,14 @@
 const db = require("../data/dbConfig");
 
 module.exports = {
-  add,
   find,
   findBy,
-  findById,
+  addRecipe,
+  findRecipeById,
+  addIngredient,
+  findIngredientsById,
+  addInstruction,
+  findInstructionById,
   remove,
 };
 
@@ -40,7 +44,7 @@ function findRecipeById(recipe_id) {
 async function addIngredient(ingredient) {
   const [ingr_id] = await db("ingredients").insert(ingredient);
 
-  return findIngredientById(ingr_id);
+  return findIngredientsById(ingr_id);
 }
 
 function findIngredientsById(ingr_id) {
