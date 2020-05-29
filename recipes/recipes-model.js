@@ -37,8 +37,7 @@ function findRecipeById(recipe_id) {
       "category",
       "source",
       "img_path"
-    )
-    .first();
+    );
 }
 
 async function addIngredient(ingredient) {
