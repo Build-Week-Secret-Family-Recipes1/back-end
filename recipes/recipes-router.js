@@ -48,7 +48,7 @@ router.get("/:id/ingredients", async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res, next) => {
+router.get("/instructions", async (req, res, next) => {
   try {
     res.json(await db("instructions"));
   } catch (err) {
