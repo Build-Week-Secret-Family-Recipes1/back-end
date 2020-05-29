@@ -38,7 +38,15 @@ router.get("/:id/recipes", async (req, res, next) => {
     const recipes = await db("recipes as r")
       .join("users as u", "u.user_id", "r.user_id")
       .where("u.user_id", req.params.id)
-      .select("*", "u.username");
+      .select(
+        "r.recipe_id",
+        "r.name",
+        "r.prep_time",
+        "r.category",
+        "r.source",
+        "r.img_path",
+        "u.username"
+      );
 
     res.json(recipes);
   } catch (err) {
