@@ -6,6 +6,7 @@ const session = require("express-session");
 const authenticate = require("./auth/auth-middleware.js");
 const authRouter = require("./auth/auth-router");
 const recipeRouter = require("./recipes/recipes-router");
+const userRouter = require("./users/user-router.js");
 
 const server = express();
 
@@ -28,6 +29,7 @@ server.use(session(sessionConfig));
 
 server.use("/api/auth", authRouter);
 server.use("/api/recipes", recipeRouter);
+server.use("/api/users", userRouter);
 
 server.get("/api", (req, res) => {
   res.status(200).send(`
