@@ -56,6 +56,26 @@ router.get("/instructions", async (req, res, next) => {
   }
 });
 
+router.get("/:id/instructions", async (req, res, next) => {
+  try {
+    const ingredients = await db("instructions").where(
+      "recipe_id",
+      req.params.id
+    );
+    if (!instructions) {
+      return res.status(404).json({
+        message: "Instructions not found",
+      });
+    }
+    res.json(instructions);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Cannot retrieve instructions",
+    });
+  }
+});
+
 router.get("/users", async (req, res) => {
   try {
     const users = await db("users");
