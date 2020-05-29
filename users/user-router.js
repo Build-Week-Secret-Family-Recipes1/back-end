@@ -39,7 +39,7 @@ router.get("/:id/recipes", async (req, res, next) => {
       .join("recipes as r", "r.recipe_id", "u.user_id")
       .where("u.user_id", req.params.id)
       .select()
-      .from("recipes");
+      .from("users");
     res.json(user);
   } catch (err) {
     console.log(err);
