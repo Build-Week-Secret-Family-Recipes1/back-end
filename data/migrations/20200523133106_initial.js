@@ -26,6 +26,7 @@ exports.up = async function (knex) {
     table.increments("inter_id");
     table.integer("recipe_id").notNullable();
     table.integer("ingr_id").notNullable();
+    table.integer("user_id").notNullable();
   });
 
   await knex.schema.createTable("users", (table) => {

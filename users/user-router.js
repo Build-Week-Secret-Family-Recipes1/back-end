@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", async (req, res) => {
   try {
     const user = await db("users").where("user_id", req.params.id);
     if (!user) {
@@ -35,11 +35,11 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/:id/recipes", async (req, res, next) => {
   try {
-    const recipes = await db("recipes")
-      .join("recipes as r", "r.recipe_id", "user.user_id")
-      .where("users.user_id", req.params.id)
+    const recipes = await db("recipes as r")
+      .join("users as u", "u.user_id", "r.recipe_id")
+      .where("u.user_id", req.params.id)
       .select()
-      .from("users");
+      .from("recipes");
 
     res.json(recipes);
   } catch (err) {
