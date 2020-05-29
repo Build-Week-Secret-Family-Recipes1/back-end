@@ -1,6 +1,6 @@
 const express = require("express");
 
-const db = require("../recipes/recipes-model");
+const model = require("../recipes/recipes-model");
 
 const router = express.Router();
 
@@ -69,7 +69,8 @@ router.post("/:id/recipes", async (req, res, next) => {
   const newRecipe = req.body;
   const { user_id } = req.params;
 
-  db.findById(user_id)
+  model
+    .findById(user_id)
     .then((recipe) => {
       if (recipe) {
         db.addRecipe(newRecipe, user_id).then((step) => {
