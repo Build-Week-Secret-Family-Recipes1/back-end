@@ -35,19 +35,12 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/:id/recipes", async (req, res, next) => {
   try {
-    const recipes = await db("recipes as r")
-      .join("users as u", "u.user_id")
+    const user = await db("users as u")
+      .join("recipes as r", "r.recipe_id", "u.user_id")
       .where("u.user_id", req.params.id)
-
-      .select
-      // "r.recipe_id",
-      // "r.name",
-      // "r.prep_time",
-      // "r.category",
-      // "r.source",
-      // "r.path_name"
-      ();
-    res.json(recipes);
+      .select()
+      .from("recipes");
+    res.json(user);
   } catch (err) {
     console.log(err);
     next(err);
