@@ -63,27 +63,18 @@ router.get("/:id/recipes", async (req, res, next) => {
   }
 });
 
-// *** ADD Recipe by User ID ***
+// *** ADD Recipe ***
 
-router.post("/:id/recipes", async (req, res) => {
+router.post("/", async (req, res) => {
   const newRecipe = req.body;
-  const { user_id } = req.params;
 
-  Model.findRecipeById(user_id)
+  Model.add(newRecipe)
     .then((recipe) => {
-      if (recipe) {
-        Model.addRecipe(newRecipe, user_id).then((step) => {
-          res.status(201).json(step);
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "Could not find recipe with given user id." });
-      }
+      res.status(201).json(recipe);
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "Failed to create new recipe" });
+      res.status(500).json({ message: "Failed to create new scheme" });
     });
 });
 
