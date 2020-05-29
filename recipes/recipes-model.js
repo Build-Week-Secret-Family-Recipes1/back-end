@@ -12,38 +12,54 @@ function find() {
   return db("recipes").select("user_id", "email", "username", "password");
 }
 
-async function findInstructions() {
-  await db("instructions as i")
-    .join("recipes as r", "i.recipe_id", "r.recipe_id")
-    .join("ingredients as ig", "ig.ingr_id", "i.instr_id")
-
-    .select(
-      "i.recipe_id",
-      "r.name",
-      "r.prep_Time",
-      "r.category",
-      "ig.ingr_name",
-      "ig.amount",
-      "i.step_#",
-      "i.instruction",
-      "r.source"
-    );
-}
-
 function findBy(filter) {
   return db("recipes").where(filter);
 }
 
-async function add(user) {
-  const [user_id] = await db("recipes").insert(user);
+async function addRecipe(recipe) {
+  const [recipe_id] = await db("recipes").insert(recipe);
 
-  return findById(user_id);
+  return findRecipeById(recipe_id);
 }
 
-function findById(user_id) {
+function findRecipeById(recipe_id) {
   return db("recipes")
-    .where({ user_id })
-    .select("user_id", "email", "username", "password")
+    .where({ recipe_id })
+    .select(
+      "user_id",
+      "recipe_id",
+      "name",
+      "prep_time",
+      "category",
+      "source",
+      "img_path"
+    )
+    .first();
+}
+
+async function addIngredient(ingredient) {
+  const [ingr_id] = await db("ingredients").insert(ingredient);
+
+  return findIngredientById(ingr_id);
+}
+
+function findIngredientsById(ingr_id) {
+  return db("ingredients")
+    .where({ ingr_id })
+    .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
+    .first();
+}
+
+async function addInstruction(instruction) {
+  const [instr_id] = await db("instructions").insert(instruction);
+
+  return findInstructionById(instr_id);
+}
+
+function findInstructionById(instr_id) {
+  return db("instructions")
+    .where({ instr_id })
+    .select("user_id", "instr_id", "step_#", "instruction", "recipe_id")
     .first();
 }
 

@@ -1,8 +1,10 @@
 const express = require("express");
 
-const db = require("../data/dbConfig");
+const db = require("../recipes/recipes-model");
 
 const router = express.Router();
+
+// *** GET Users ***
 
 router.get("/", async (req, res) => {
   try {
@@ -15,6 +17,8 @@ router.get("/", async (req, res) => {
     });
   }
 });
+
+// *** GET Users by ID ***
 
 router.get("/:id", async (req, res) => {
   try {
@@ -32,6 +36,8 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+
+// *** GET Recipes by User ID ****
 
 router.get("/:id/recipes", async (req, res, next) => {
   try {
@@ -57,6 +63,31 @@ router.get("/:id/recipes", async (req, res, next) => {
   }
 });
 
+// *** ADD Recipe by User ID ***
+
+router.post("/:id/recipes", async (req, res, next) => {
+  const newRecipe = req.body;
+  const { user_id } = req.params;
+
+  db.findById(user_id)
+    .then((recipe) => {
+      if (recipe) {
+        db.addRecipe(newRecipe, user_id).then((step) => {
+          res.status(201).json(step);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: "Could not find recipe with given user id." });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Failed to create new recipe" });
+    });
+});
+
+// *** GET Ingredients by User ID ***
+
 router.get("/:id/ingredients", async (req, res, next) => {
   try {
     const ingredients = await db("ingredients as i")
@@ -78,6 +109,8 @@ router.get("/:id/ingredients", async (req, res, next) => {
     next(err);
   }
 });
+
+// *** GET Instructions by User ID ***
 
 router.get("/:id/instructions", async (req, res, next) => {
   try {
