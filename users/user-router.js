@@ -83,6 +83,7 @@ router.post("/:id/recipes", async (req, res, next) => {
       }
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({ message: "Failed to create new recipe" });
     });
 });
