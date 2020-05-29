@@ -67,24 +67,16 @@ router.get("/:id/recipes", async (req, res, next) => {
 
 router.post("/:id/recipes", async (req, res, next) => {
   const newRecipe = req.body;
-  const { user_id } = req.params;
 
   model
-    .findRecipeById(user_id)
+    .add(newRecipe)
     .then((recipe) => {
-      if (recipe) {
-        db.addRecipe(newRecipe, user_id).then((step) => {
-          res.status(201).json(step);
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "Could not find recipe with given user id." });
-      }
+      res.status(201).json(recipe);
     })
     .catch((err) => {
       console.log(err);
       res.status(500).json({ message: "Failed to create new recipe" });
+      next(err);
     });
 });
 
