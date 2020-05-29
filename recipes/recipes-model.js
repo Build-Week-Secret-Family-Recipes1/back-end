@@ -21,13 +21,13 @@ function findBy(filter) {
 }
 
 async function addRecipe(recipe) {
-  const [recipe_id] = await db("recipes").insert(recipe);
+  const [user_id] = await db("recipes").insert(recipe);
 
-  return findRecipeById(recipe_id);
+  return findRecipeById(user_id);
 }
 
-function findRecipeById(recipe_id) {
-  return db("recipes").where({ recipe_id });
+function findRecipeById(user_id) {
+  return db("recipes").where({ user_id });
 }
 
 async function addIngredient(ingredient) {
