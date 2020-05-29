@@ -35,9 +35,8 @@ router.get("/:id", async (req, res) => {
 
 router.get("/:id/recipes", async (req, res, next) => {
   try {
-    const recipes = await db("interTable as i")
-      .join("users as u", "u.user_id", "i.user_id")
-      .join("recipes as r", "r.recipe_id", "i.recipe_id")
+    const recipes = await db("recipes as r")
+      .join("users as u", "u.user_id", "r.user_id")
       .where("u.user_id", req.params.id)
       .select();
 
