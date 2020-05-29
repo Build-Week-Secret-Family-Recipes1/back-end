@@ -19,7 +19,7 @@ router.post("/register", (req, res) => {
       }
     })
     .catch((err) => {
-      //   console.log(err);
+      console.log(err);
       res.status(500).json(err);
     });
   // try {
@@ -74,6 +74,7 @@ router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
+        console.log(err);
         res.status(500).json({
           message: "There was an error logging out this user",
         });
