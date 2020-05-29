@@ -37,6 +37,7 @@ router.get("/:id/recipes", async (req, res, next) => {
   try {
     const recipes = await db("recipes as r")
       .join("users as u", "u.user_id", "r.recipe_id")
+      .from("recipes")
       .where("u.user_id", req.params.id)
       .select()
       .from("recipes");
