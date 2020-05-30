@@ -31,29 +31,31 @@ function findRecipeById(user_id) {
 }
 
 async function addIngredient(ingredient) {
-  const [ingr_id] = await db("ingredients")
+  const [user_id] = await db("ingredients")
     .insert(ingredient)
-    .returning("ingr_id");
+    .returning("user_id");
 
-  return findIngredientsById(ingr_id);
+  return findIngredientsById(user_id);
 }
 
 function findIngredientsById(ingr_id) {
   return db("ingredients")
-    .where({ ingr_id }, req.params.id)
+    .where({ user_id }, req.params.id)
     .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
     .first();
 }
 
 async function addInstruction(instruction) {
-  const [instr_id] = await db("instructions").insert(instruction);
+  const [user_id] = await db("instructions")
+    .insert(instruction)
+    .returning("user_id");
 
-  return findInstructionById(instr_id);
+  return findInstructionById(user_id);
 }
 
 function findInstructionById(instr_id) {
   return db("instructions")
-    .where({ instr_id })
+    .where({ user_id })
     .select("user_id", "instr_id", "step_#", "instruction", "recipe_id")
     .first();
 }
