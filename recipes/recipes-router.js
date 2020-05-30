@@ -96,7 +96,7 @@ router.post("/", async (req, res) => {
 router.post("/ingredients", async (req, res) => {
   const newIngredient = req.body;
 
-  await Users.addIngredient(newIngredient)
+  Users.addIngredient(newIngredient)
     .then((ingredient) => {
       res.status(201).json(ingredient);
     })
