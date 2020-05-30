@@ -31,16 +31,20 @@ function findRecipeById(user_id) {
 }
 
 async function addIngredient(ingredient) {
-  const [ingr_id] = await db("ingredients").insert(ingredient);
+  const [ingr_id] = await db("ingredients")
+    .insert(ingredient)
+    .returning("ingr_id");
 
   return findIngredientsById(ingr_id);
 }
 
 function findIngredientsById(ingr_id) {
-  return db("ingredients")
-    .where({ ingr_id })
-    .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
-    .first();
+  return (
+    db("ingredients")
+      .where({ ingr_id })
+      // .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
+      .first()
+  );
 }
 
 async function addInstruction(instruction) {
