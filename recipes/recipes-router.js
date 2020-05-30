@@ -93,17 +93,27 @@ router.post("/", async (req, res) => {
 
 // *** ADD Ingredients ***
 
-router.post("/ingredients", async (req, res) => {
-  const newIngredient = req.body;
+// router.post("/ingredients", async (req, res) => {
+//   const newIngredient = req.body;
 
-  Users.addIngredient(newIngredient)
-    .then((ingredient) => {
-      res.status(201).json(ingredient);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to create new ingredient" });
-    });
+//   Users.addIngredient(newIngredient)
+//     .then((ingredient) => {
+//       res.status(201).json(ingredient);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json({ message: "Failed to create new ingredient" });
+//     });
+// });
+
+router.post("/instructions", async (req, res) => {
+  const newIngredient = db("instructions").insert({
+    user_id: req.params.id,
+    instr_id: req.body,
+    "step_#": req.body,
+    instruction: req.body.instruction,
+    recipe_id: req.body,
+  });
 });
 
 // *** ADD Instructions***
