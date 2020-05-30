@@ -106,7 +106,7 @@ router.post("/", async (req, res) => {
 //     });
 // });
 
-router.post("/instructions", async (req, res) => {
+router.post("/instructions", (req, res) => {
   const newIngredient = db("instructions").insert({
     user_id: req.params.id,
     instr_id: req.body,
@@ -114,6 +114,14 @@ router.post("/instructions", async (req, res) => {
     instruction: req.body.instruction,
     recipe_id: req.body,
   });
+
+  if (newIngredient) {
+    res.status(200).json(newIngredient);
+  } else {
+    res.status(500).json({
+      errorMessage: "Could not create instruction",
+    });
+  }
 });
 
 // *** ADD Instructions***
