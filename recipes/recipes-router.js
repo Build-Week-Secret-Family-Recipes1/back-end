@@ -106,4 +106,19 @@ router.post("/ingredients", async (req, res) => {
     });
 });
 
+// *** ADD Instructions***
+
+router.post("/instructions", async (req, res) => {
+  const newInstruction = req.body;
+
+  Users.addInstruction(newInstruction)
+    .then((instruction) => {
+      res.status(201).json(instruction);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Failed to create new instruction" });
+    });
+});
+
 module.exports = router;
