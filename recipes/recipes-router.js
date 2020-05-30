@@ -93,7 +93,7 @@ router.post("/", async (req, res) => {
 
 // *** ADD Ingredients ***
 
-router.post("/", async (req, res) => {
+router.post("/ingredients", async (req, res) => {
   const newIngredient = req.body;
 
   await Users.addIngredient(newIngredient)
