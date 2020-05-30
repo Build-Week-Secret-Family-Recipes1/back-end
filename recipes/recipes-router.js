@@ -79,9 +79,9 @@ router.get("/:id/instructions", async (req, res, next) => {
 // *** ADD Recipe ***
 
 router.post("/", async (req, res) => {
-  const newRecipe = req.body;
+  const newRecipe = { ...req.body, user_id: req.params.id };
 
-  Users.addRecipe(newRecipe)
+  await Users.addRecipe(newRecipe)
     .then((recipe) => {
       res.status(201).json(recipe);
     })
