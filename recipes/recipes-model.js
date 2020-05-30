@@ -21,9 +21,7 @@ function findBy(filter) {
 }
 
 async function addRecipe(recipe) {
-  const [user_id] = await db("recipes")
-    .insert(recipe)
-    .returning("user_id", req.params.id);
+  const [user_id] = await db("recipes").insert(recipe).returning("user_id");
 
   return findRecipeById(user_id);
 }
