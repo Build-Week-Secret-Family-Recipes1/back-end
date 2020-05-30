@@ -78,7 +78,7 @@ router.get("/:id/instructions", async (req, res, next) => {
 
 // *** ADD Recipe ***
 
-router.post("/", async (req, res) => {
+router.post("/:id/recipes", async (req, res) => {
     try {
       const newRecipe = {...req.body, user_id = req.params.id}
 
