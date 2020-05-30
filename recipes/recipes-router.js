@@ -87,6 +87,7 @@ router.get("/:id/ingredients", async (req, res, next) => {
   }
 });
 
+// *** GET Instructions BY Recipe iD ***
 router.get("/:id/instructions", async (req, res, next) => {
   try {
     const instructions = await db("instructions").where(
@@ -124,17 +125,30 @@ router.post("/", async (req, res) => {
 
 // *** ADD Ingredients ***
 
-router.post("/ingredients", async (req, res) => {
-  const newIngredient = req.body;
+router.post("/:id/ingredients", async (req, res) => {
+  // const newIngredient = req.body;
 
-  await Recipes.addIngredient(newIngredient)
-    .then((ingredient) => {
-      res.status(201).json(ingredient);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to create new ingredient" });
+  // await Recipes.addIngredient(newIngredient)
+  //   .then((ingredient) => {
+  //     res.status(201).json(ingredient);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).json({ message: "Failed to create new ingredient" });
+  //   });
+  try {
+    const newIngredient = req.body;
+
+    const ingredients = await db("ingredients")
+      .insert(newIngredient)
+      .where("recipe_id", req.params.id);
+    res.status(201).json(ingredients);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "Ingredient could not be created",
     });
+  }
 });
 
 // *** ADD Instructions***
