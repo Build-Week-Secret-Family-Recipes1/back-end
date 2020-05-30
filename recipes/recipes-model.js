@@ -39,12 +39,10 @@ async function addIngredient(ingredient) {
 }
 
 function findIngredientsById(ingr_id) {
-  return (
-    db("ingredients")
-      .where({ ingr_id })
-      // .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
-      .first()
-  );
+  return db("ingredients")
+    .where({ ingr_id }, req.params.id)
+    .select("user_id", "ingr_id", "ingr_name", "amount", "recipe_id")
+    .first();
 }
 
 async function addInstruction(instruction) {
