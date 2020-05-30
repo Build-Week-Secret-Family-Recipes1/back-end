@@ -78,20 +78,17 @@ router.get("/:id/instructions", async (req, res, next) => {
 
 // *** ADD Recipe ***
 
-router.post("/:id/recipes", async (req, res) => {
-    try {
-      const newRecipe = {...req.body, user_id = req.params.id}
+router.post("/", async (req, res) => {
+  const newRecipe = req.body;
 
-   await Users.addRecipe(newRecipe)
+  Users.addRecipe(newRecipe)
     .then((recipe) => {
       res.status(201).json(recipe);
     })
-  
-    } catch(err) {
-        console.log(err);
+    .catch((err) => {
+      console.log(err);
       res.status(500).json({ message: "Failed to create new recipe" });
-      next(err);
-    }
+    });
 });
 
 module.exports = router;
