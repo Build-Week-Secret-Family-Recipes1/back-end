@@ -126,16 +126,6 @@ router.post("/", async (req, res) => {
 // *** ADD Ingredients ***
 
 router.post("/:id/ingredients", async (req, res) => {
-  // const newIngredient = req.body;
-
-  // await Recipes.addIngredient(newIngredient)
-  //   .then((ingredient) => {
-  //     res.status(201).json(ingredient);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.status(500).json({ message: "Failed to create new ingredient" });
-  //   });
   try {
     const newIngredient = req.body;
 
@@ -146,24 +136,27 @@ router.post("/:id/ingredients", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      errorMessage: "Ingredient could not be created",
+      errorMessage: "New ingredient could not be added",
     });
   }
 });
 
 // *** ADD Instructions***
 
-router.post("/instructions", async (req, res) => {
-  const newInstruction = req.body;
+router.post("/:id/instructions", async (req, res) => {
+  try {
+    const newInstruction = req.body;
 
-  Users.addInstruction(newInstruction)
-    .then((instruction) => {
-      res.status(201).json(instruction);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ message: "Failed to create new instruction" });
+    const instructions = await db("instructions")
+      .insert(newInstructiont)
+      .where("recipe_id", req.params.id);
+    res.status(201).json(instructions);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      errorMessage: "New instruction could not be added",
     });
+  }
 });
 
 module.exports = router;
