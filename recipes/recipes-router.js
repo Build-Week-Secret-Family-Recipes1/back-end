@@ -1,8 +1,10 @@
 const express = require("express");
 const db = require("../data/dbConfig");
-const Users = require("./recipes-model");
+const Recipes = require("./recipes-model");
 
 const router = express.Router();
+
+// *** GET Recipes ***
 
 router.get("/", async (req, res, next) => {
   try {
@@ -16,6 +18,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// *** GET Ingredients ***
 router.get("/ingredients", async (req, res, next) => {
   try {
     const ingredients = await db("ingredients");
@@ -27,6 +30,42 @@ router.get("/ingredients", async (req, res, next) => {
     });
   }
 });
+
+// *** GET Instructions
+
+router.get("/instructions", async (req, res, next) => {
+  try {
+    res.json(await db("instructions"));
+  } catch (err) {
+    next(err);
+  }
+});
+
+// *** GET Recipes by Recipe iD ****
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const recipes = await db("recipes")
+      .where("recipe_id", req.params.id)
+      .select(
+        "r.recipe_id",
+        "r.name",
+        "r.prep_time",
+        "r.category",
+        "r.source",
+        "r.img_path"
+      );
+    res.json(recipes);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Could not retrieve user recipes",
+    });
+    next(err);
+  }
+});
+
+// *** GET Ingredients By Recipe iD ***
 
 router.get("/:id/ingredients", async (req, res, next) => {
   try {
@@ -45,14 +84,6 @@ router.get("/:id/ingredients", async (req, res, next) => {
     res.status(500).json({
       errorMessage: "Cannot retrieve ingredients",
     });
-  }
-});
-
-router.get("/instructions", async (req, res, next) => {
-  try {
-    res.json(await db("instructions"));
-  } catch (err) {
-    next(err);
   }
 });
 
@@ -81,7 +112,7 @@ router.get("/:id/instructions", async (req, res, next) => {
 router.post("/", async (req, res) => {
   const newRecipe = req.body;
 
-  await Users.addRecipe(newRecipe)
+  await Recipes.addRecipe(newRecipe)
     .then((recipe) => {
       res.status(201).json(recipe);
     })
@@ -93,35 +124,17 @@ router.post("/", async (req, res) => {
 
 // *** ADD Ingredients ***
 
-// router.post("/ingredients", async (req, res) => {
-//   const newIngredient = req.body;
+router.post("/ingredients", async (req, res) => {
+  const newIngredient = req.body;
 
-//   Users.addIngredient(newIngredient)
-//     .then((ingredient) => {
-//       res.status(201).json(ingredient);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json({ message: "Failed to create new ingredient" });
-//     });
-// });
-
-router.post("/instructions", (req, res) => {
-  const newIngredient = db("instructions").insert({
-    user_id: req.params.id,
-    instr_id: req.body,
-    "step_#": req.body,
-    instruction: req.body.instruction,
-    recipe_id: req.body,
-  });
-
-  if (newIngredient) {
-    res.status(200).json(newIngredient);
-  } else {
-    res.status(500).json({
-      errorMessage: "Could not create instruction",
+  await Recipes.addIngredient(newIngredient)
+    .then((ingredient) => {
+      res.status(201).json(ingredient);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Failed to create new ingredient" });
     });
-  }
 });
 
 // *** ADD Instructions***
