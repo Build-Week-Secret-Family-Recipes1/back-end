@@ -45,7 +45,7 @@ router.get("/instructions", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const recipes = await db("recipes")
+    const recipes = await db("recipes as r")
       .where("recipe_id", req.params.id)
       .select(
         "r.recipe_id",
