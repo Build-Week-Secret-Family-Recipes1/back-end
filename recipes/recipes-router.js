@@ -91,4 +91,19 @@ router.post("/", async (req, res) => {
     });
 });
 
+// *** ADD Ingredients ***
+
+router.post("/", async (req, res) => {
+  const newIngredient = req.body;
+
+  await Users.addIngredient(newIngredient)
+    .then((ingredient) => {
+      res.status(201).json(ingredient);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: "Failed to create new ingredient" });
+    });
+});
+
 module.exports = router;
