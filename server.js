@@ -36,21 +36,42 @@ server.get("/api", (req, res) => {
   <h1>Welcome to the Secret Family Recipes API!</h1>
 
   <h3>Send your requests to these endpoints:</h3>
+  </br>
 
-  <p>*** Heroku wipes the databse every 24-48 hours so until I make the transition to Postgres, register your dummy id after long absences ***</p>
+  <h2>Authentication</h2></br>
 
   <p>to <strong>REGISTER</strong> a new user: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/register</p>
 
   <p>to <strong>LOGIN</strong> a user: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/login</p>
 
   <p>to <strong>LOGOUT</strong> a user: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/auth/logout</p>
+  </br>
 
+  <h2>Users</h2></br>
 
-          <p>to <strong>GET</strong> all added recipes: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes</p>
+  <p>to <strong>GET</strong> all registered users: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/users</p>
 
-    <p>to <strong>GET</strong> all registered users: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/users</p>
+  <p>to <strong>GET</strong> all registered users by user_id: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/users/:id</p></br>
 
-          <p>to <strong>GET</strong> all added recipes w/ instructions: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/instructions</p>
+  <h2>Recipes</h2></br>
+         
+  <p>to <strong>GET</strong> all added recipes: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes</p>
+
+  <p>to <strong>GET</strong> all added ingredients: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/ingredients</p>
+
+  <p>to <strong>GET</strong> all added instructions: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/instructions</p>
+
+  <p>to <strong>GET</strong> recipes sorted by recipe_id: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/:id</p>
+
+  <p>to <strong>GET</strong> ingredients sorted by recipe_id: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/:id/ingredients</p>
+
+  <p>to <strong>GET</strong> instructions sorted by recipe_id: <strong>GET</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/:id/instructions</p>
+
+  <p>to <strong>ADD</strong> new recipes: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes</p>
+
+  <p>to <strong>ADD</strong> new ingredients by recipe_id: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/:id/ingredients</p>
+
+  <p>to <strong>ADD</strong> new instructions by recipe_id: <strong>POST</strong> to https://bw-grandmas-recipes.herokuapp.com/api/recipes/:id/instructions</p>
 
 
   `);
