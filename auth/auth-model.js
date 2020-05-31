@@ -16,19 +16,21 @@ function findBy(filter) {
   return db("users").where(filter);
 }
 
+function findById(id) {
+  return (
+    db("users")
+      .where({ id })
+      // .select("user_id", "email", "username", "password")
+      .first()
+  );
+}
+
 async function add(user) {
-  const [user_id] = await db("users").insert(user);
+  const [id] = await db("users").insert(user);
 
-  return findById(user_id);
+  return findById(id);
 }
 
-function findById(user_id) {
-  return db("users")
-    .where({ user_id })
-    .select("user_id", "email", "username", "password")
-    .first();
-}
-
-function remove(user_id) {
-  return db("users").where({ user_id }).del();
+function remove(id) {
+  return db("users").where({ id }).del();
 }
