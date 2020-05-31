@@ -17,18 +17,18 @@ function findBy(filter) {
 }
 
 async function add(user) {
-  const [user_id] = await db("users").insert(user);
+  const [d] = await db("users").insert(user);
 
-  return findById(user_id);
+  return findById(id);
 }
 
-function findById(user_id) {
+function findById(id) {
   return db("users")
-    .where({ user_id })
+    .where({ id })
     .select("user_id", "email", "username", "password")
     .first();
 }
 
-function remove(user_id) {
-  return db("users").where({ user_id }).del();
+function remove(id) {
+  return db("users").where({ id }).del();
 }
