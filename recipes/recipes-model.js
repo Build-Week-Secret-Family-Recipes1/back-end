@@ -25,7 +25,7 @@ async function addRecipe(recipe) {
 }
 
 function findRecipeById(user_id) {
-  return db("recipes").where({ user_id }, req.params.id).first();
+  return db("recipes").where({ user_id }).first();
 }
 
 function remove(recipe_id) {
