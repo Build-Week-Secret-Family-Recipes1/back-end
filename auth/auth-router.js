@@ -34,15 +34,15 @@ router.post("/register", (req, res) => {
 
 //implement user login
 router.post("/login", (req, res) => {
-  let { email, password } = req.body;
+  let { user_id, password } = req.body;
 
-  Users.findBy({ email })
+  Users.findBy({ user_id })
     .first()
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
         req.session.user = {
-          id: user.id,
+          id: user.user_id,
           email: user.email,
           token: user.token,
         };
@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
 // generate token
 function generateToken(user) {
   const payload = {
-    subject: user.id,
+    subject: user.user_id,
     email: user.email,
   };
 
