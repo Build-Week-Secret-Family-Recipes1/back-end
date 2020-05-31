@@ -28,8 +28,8 @@ server.use(express.json());
 server.use(session(sessionConfig));
 
 server.use("/api/auth", authRouter);
-server.use("/api/recipes", recipeRouter);
-server.use("/api/users", userRouter);
+server.use("/api/recipes", authenticate, recipeRouter);
+server.use("/api/users", authenticate, userRouter);
 
 server.get("/api", (req, res) => {
   res.status(200).send(`
