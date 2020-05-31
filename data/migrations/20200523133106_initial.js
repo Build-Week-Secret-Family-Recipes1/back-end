@@ -34,9 +34,9 @@ exports.up = async function (knex) {
 
   await knex.schema.createTable("users", (table) => {
     table.increments("user_id");
-    table.string("email", 128);
-    table.string("username", 128);
-    table.string("password", 128);
+    table.string("email", 128).notNullable().unique();
+    table.string("username", 128).notNullable();
+    table.string("password", 128).notNullable();
   });
 };
 

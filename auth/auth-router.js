@@ -34,9 +34,9 @@ router.post("/register", (req, res) => {
 
 //implement user login
 router.post("/login", (req, res) => {
-  let { user_id, password } = req.body;
+  let { email, password } = req.body;
 
-  Users.findBy({ user_id })
+  Users.findBy({ email, password })
     .first()
     .then((user) => {
       if (user && bcrypt.compareSync(password, user.password)) {
@@ -67,7 +67,7 @@ function generateToken(user) {
   const options = {
     expiresIn: "8h",
   };
-  return jwt.sign(payload, process.env.JWT_SECRET, options);
+  return jwt.sign(payload, process.env.JWT_SECRET || "secret", options);
 }
 
 router.get("/logout", (req, res) => {
