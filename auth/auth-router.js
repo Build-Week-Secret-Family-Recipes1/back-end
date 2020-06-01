@@ -79,7 +79,7 @@ router.get("/logout", (req, res) => {
           message: "There was an error logging out this user",
         });
       } else {
-        res.status(200).json({ message: "logged out succeffully" });
+        res.status(200).json({ message: "logged out successfully" });
       }
     });
   } else {
